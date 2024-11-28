@@ -5,9 +5,10 @@ import { Post } from "../types/Post";
 
 type Props = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  form: any ;
+  form: any;
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 };
-const PostForm: React.FC<Props> = ({ setIsModalOpen  , form}) => {
+const PostForm: React.FC<Props> = ({ setIsModalOpen, form, setPosts }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleFormSubmit = async (values: Omit<Post, "id">) => {
@@ -21,9 +22,9 @@ const PostForm: React.FC<Props> = ({ setIsModalOpen  , form}) => {
         message: "Post Added",
         description: `Post titled "${response.data.title}" was added successfully.`,
       });
+      setPosts((prev) => [...prev, response.data]);
       form.resetFields();
       setIsModalOpen(false);
-      
     } catch (error) {
       notification.error({
         message: "Error",
@@ -35,7 +36,13 @@ const PostForm: React.FC<Props> = ({ setIsModalOpen  , form}) => {
   };
 
   return (
-    <Form   form={form} layout="vertical" onFinish={()=>{handleFormSubmit(form.getFieldsValue())}}>
+    <Form
+      form={form}
+      layout="vertical"
+      onFinish={() => {
+        handleFormSubmit(form.getFieldsValue());
+      }}
+    >
       <Form.Item
         name="title"
         label="Title"
@@ -50,7 +57,7 @@ const PostForm: React.FC<Props> = ({ setIsModalOpen  , form}) => {
       >
         <Input.TextArea rows={4} placeholder="Enter post body" />
       </Form.Item>
-      <Form.Item>
+      <Form.Item style={{ display: "flex", justifyContent: "flex-end" }}>
         <Button type="primary" htmlType="submit" loading={loading}>
           Add Post
         </Button>

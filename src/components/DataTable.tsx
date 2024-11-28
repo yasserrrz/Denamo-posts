@@ -4,31 +4,22 @@ import axios from "axios";
 import { Post } from "../types/Post";
 import { ReactComponent as EditIcon } from "../assets/edit.svg";
 import { ReactComponent as DeleteIcon } from "../assets/delete-icon-1.svg";
-
-const DataTable: React.FC = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+import { text } from "stream/consumers";
+type Props = {
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  posts: Post[];
+  setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
+};
+const DataTable: React.FC<Props> = ({
+  loading,
+  setLoading,
+  posts,
+  setPosts,
+}) => {
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.get<Post[]>(
-          "https://jsonplaceholder.typicode.com/posts"
-        );
-        setPosts(response.data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const handleEdit = (post: Post) => {
     setEditingPost(post);
@@ -107,10 +98,16 @@ const DataTable: React.FC = () => {
     {
       title: "Actions",
       key: "actions",
-      width: "12%",
+
+      width: "11%",
+      textAlign: "center",
       render: (text: any, record: Post) => (
         <div className="table-actions" style={{ display: "flex", gap: "8px" }}>
-          <Tooltip title="Edit">
+          <Tooltip
+            title="Edit"
+            zIndex={1}
+            placement={record.id % 10 === 1 ? "bottom" : "top"}
+          >
             <Button
               type="primary"
               shape="circle"
@@ -118,13 +115,17 @@ const DataTable: React.FC = () => {
               onClick={() => handleEdit(record)}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip
+            title="Delete"
+            zIndex={1}
+            placement={record.id % 10 === 1 ? "bottom" : "top"}
+          >
             <Button
               type="primary"
               danger
               shape="circle"
               icon={<DeleteIcon />}
-              style={{padding:"8px"}}
+              style={{ padding: "8px" }}
               onClick={() => {
                 setEditingPost(record);
                 setDeleteModalOpen(true);
@@ -143,8 +144,10 @@ const DataTable: React.FC = () => {
         columns={columns}
         rowKey="id"
         loading={loading}
-        scroll={{ y: "calc(100vh - 250px)", x: 700 }}
-        pagination={{ pageSize: 10 }}
+        scroll={{ x: 700 }}
+        sticky
+        pagination={{ position: ["bottomCenter"] }}
+        bordered
       />
 
       {/* edit modale */}
@@ -190,19 +193,19 @@ const DataTable: React.FC = () => {
         centered
         footer={[
           <Button
-            key="cancel"
-            onClick={() => setDeleteModalOpen(false)}
-            style={{ marginRight: "8px" }}
-          >
-            No
-          </Button>,
-          <Button
             key="delete"
             type="primary"
             danger
             onClick={() => handleDelete(editingPost?.id || 0)}
           >
             Yes
+          </Button>,
+          <Button
+            key="cancel"
+            onClick={() => setDeleteModalOpen(false)}
+            style={{ marginRight: "8px" }}
+          >
+            No
           </Button>,
         ]}
       >

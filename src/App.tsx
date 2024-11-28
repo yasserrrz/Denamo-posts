@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Layout, Modal, Typography, Card, Grid } from "antd";
 import DataTable from "./components/DataTable";
 import PostForm from "./components/PostForm";
 import { ReactComponent as AddIcon } from "./assets/add-277.svg";
 import "./App.css";
+import { Post } from "./types/Post";
+import axios from "axios";
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -11,16 +13,42 @@ const { useBreakpoint } = Grid;
 
 const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [form] = Form.useForm();
   const screens = useBreakpoint();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get<Post[]>(
+          "https://jsonplaceholder.typicode.com/posts"
+        );
+        setPosts(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <>
       <Layout
         style={{
-          minHeight: "100vh",
+          height: "100vh",
+          minHeight: "80vh",
           backgroundColor: "#f5f5f5",
-          padding: screens.xs ? "10px" : "20px",
+          padding: screens.xs
+            ? "5px"
+            : screens.sm
+            ? "10px"
+            : screens.md
+            ? "15px"
+            : "20px",
         }}
       >
         <Content>
@@ -28,7 +56,7 @@ const App: React.FC = () => {
             style={{
               borderRadius: "8px",
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-              padding: screens.xs ? "5px" : "20px",
+              padding: screens.xs ? "10px 5px " : screens.sm ? "10px" : "20px",
             }}
           >
             <div
@@ -38,7 +66,7 @@ const App: React.FC = () => {
                 justifyContent: "space-between",
                 alignItems: "center",
                 flexWrap: "wrap",
-                gap: screens.xs ? "8px" : "10px",
+                gap: screens.xs ? "5px" : "10px",
               }}
             >
               <Title
@@ -59,7 +87,7 @@ const App: React.FC = () => {
                 style={{
                   fontSize: screens.xs ? "14px" : "16px",
                   fontWeight: "500",
-                  padding: screens.xs ? "8px 12px" : "10px 20px",
+                  padding: screens.xs ? "15px 10px" : screens.sm ? "15px 10px" : "20px 15px",
                   display: "flex",
                   alignItems: "center",
                   gap: "8px",
@@ -69,7 +97,12 @@ const App: React.FC = () => {
               </Button>
             </div>
             <div>
-              <DataTable />
+              <DataTable
+                posts={posts}
+                setPosts={setPosts}
+                loading={loading}
+                setLoading={setLoading}
+              />
             </div>
           </Card>
         </Content>
@@ -89,7 +122,11 @@ const App: React.FC = () => {
           overflow: "hidden",
         }}
       >
-        <PostForm setIsModalOpen={setIsModalOpen} form={form} />
+        <PostForm
+          setIsModalOpen={setIsModalOpen}
+          form={form}
+          setPosts={setPosts}
+        />
       </Modal>
     </>
   );
