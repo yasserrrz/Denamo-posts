@@ -1,46 +1,128 @@
-# Getting Started with Create React App
+```markdown
+# React Posts Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a **Posts Management App** developed using **React** and **Ant Design**, built as part of a coding test for a DINAMO interview. The application demonstrates CRUD (Create, Read, Update, Delete) operations with a responsive UI, following modern React development practices.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Responsive Design**: Optimized for both desktop and mobile screens.
+- **Post Management**: View, create, edit, and delete posts seamlessly.
+- **Dynamic Table**: Interactive table for displaying posts with pagination and actions.
+- **Modular Architecture**: Clean and reusable component structure.
+- **Styled with Ant Design**: Uses the Ant Design library for UI components.
+- **Axios for API Calls**: Fetches and updates data from a mock API.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech Stack
 
-### `npm test`
+- **React**: JavaScript library for building user interfaces.
+- **Ant Design**: UI library for professional-looking components.
+- **Axios**: HTTP client for making API requests.
+- **TypeScript**: Strongly-typed JavaScript for improved code quality.
+- **CSS**:  CSS for styling components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Installation and Setup
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Clone the repository:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/yasserrrz/Denamo-posts.git
+   cd dinamo-react-test
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Install dependencies:
 
-### `npm run eject`
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. Run the application:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+4. Open your browser and navigate to:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+   ```
+   http://localhost:3000
+   ```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Project Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+src
+├── components
+│   ├── DataTable.tsx       # Component for displaying the posts in a table
+│   ├── PostForm.tsx        # Form component for adding/editing posts
+├── assets                  # SVG icons and images
+├── App.tsx                 # Main application entry point
+├── App.css                 # Global styles
+├── types
+│   └── Post.ts             # TypeScript interface for Post data
+└── index.tsx               # ReactDOM entry file
+```
+
+---
+
+## API Integration
+
+This app integrates with the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/) for managing posts.
+
+### Endpoints Used:
+
+1. **Get All Posts**:
+   - `GET /posts`
+   - Used to fetch the list of posts.
+
+2. **Update a Post**:
+   - `PUT /posts/:id`
+   - Updates a specific post.
+
+3. **Delete a Post**:
+   - `DELETE /posts/:id`
+   - Deletes a specific post.
+
+---
+
+## Usage
+
+1. **View Posts**:
+   - Posts are displayed in a table with pagination.
+   - Each row includes post details and actions.
+
+2. **Add a New Post**:
+   - Click the "Add Post" button.
+   - Fill in the title and body in the modal form.
+
+3. **Edit a Post**:
+   - Click the edit icon in the Actions column.
+   - Modify the post details in the modal and submit.
+
+4. **Delete a Post**:
+   - Click the delete icon in the Actions column.
+   - Confirm the deletion in the modal.
+
+---
+
+## Future Enhancements
+
+- **Add Backend Integration**: Replace the mock API with a real backend service.
+- **Form Validation**: Enhance validation for better error handling.
+---
+
+## Author
+
+**Yasser Mohamed**  
+[GitHub Profile](https://github.com/yasserrrz)  
+[LinkedIn Profile](https://www.linkedin.com/in/yasser-mohamed-5ba73a198)
+
+---
+
