@@ -29,6 +29,9 @@
 :where(.css-dev-only-do-not-override-1x0dypw).ant-pagination .ant-pagination-options {
   display: none;
 }
+:where(.css-1x0dypw).ant-pagination .ant-pagination-options {
+  display: none !important;
+}
 
 @media screen and (max-width: 768px) {
   .table-actions {
