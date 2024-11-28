@@ -1,0 +1,9 @@
+.cancel{
+  color: #000;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 4px 15px;
+  cursor: pointer;
+  
+}
