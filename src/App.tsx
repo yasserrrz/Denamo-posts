@@ -87,13 +87,11 @@ const App: React.FC = () => {
                 style={{
                   fontSize: screens.xs ? "14px" : "16px",
                   fontWeight: "500",
-                  padding: screens.xs ? "15px 10px" : screens.sm ? "15px 10px" : "20px 15px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
+                  padding: screens.xs ? "15px 10px" : screens.sm ? "20px 15px" : "20px 15px",
+                 
                 }}
               >
-                <AddIcon /> Add Post
+                <AddIcon /><span>Add Post</span>
               </Button>
             </div>
             <div>
