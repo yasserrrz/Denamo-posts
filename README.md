@@ -1,4 +1,3 @@
-```markdown
 # React Posts Management App
 
 This project is a **Posts Management App** developed using **React** and **Ant Design**, built as part of a coding test for a DINAMO interview. The application demonstrates CRUD (Create, Read, Update, Delete) operations with a responsive UI, following modern React development practices.
@@ -22,7 +21,7 @@ This project is a **Posts Management App** developed using **React** and **Ant D
 - **Ant Design**: UI library for professional-looking components.
 - **Axios**: HTTP client for making API requests.
 - **TypeScript**: Strongly-typed JavaScript for improved code quality.
-- **CSS**:  CSS for styling components.
+- **CSS**: CSS for styling components.
 
 ---
 
@@ -33,7 +32,7 @@ This project is a **Posts Management App** developed using **React** and **Ant D
    ```bash
    git clone https://github.com/yasserrrz/Denamo-posts.git
    cd dinamo-react-test
-   ```
+
 
 2. Install dependencies:
 
